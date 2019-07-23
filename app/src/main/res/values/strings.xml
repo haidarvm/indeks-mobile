@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">indeks-kepuasan-mobile</string>
+    <string name="indeks_kepuasan_trial">Indeks Kepuasan Trial v.1</string>
+    <string name="textView">Puas</string>
 </resources>
