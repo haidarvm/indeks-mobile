@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">indeks-kepuasan-mobile</string>
-    <string name="indeks_kepuasan_trial">Indeks Kepuasan Trial v.1</string>
-    <string name="textView">Puas</string>
+    <string name="indeks_kepuasan_trial">Apakah Anda Puas Dengan Layanan ini?</string>
+    <string name="satisfyText">Puas</string>
+    <string name="dissatisfyText">Tidak Puas</string>
 </resources>

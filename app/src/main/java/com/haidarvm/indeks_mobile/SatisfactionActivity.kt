@@ -2,16 +2,15 @@ package com.haidarvm.indeks_mobile
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import android.content.Intent
+import android.widget.Toast
+import com.google.gson.JsonObject
+import retrofit2.*
 import java.util.*
 import kotlin.concurrent.timerTask
+import com.google.gson.Gson
 
 
 class SatisfactionActivity : AppCompatActivity() {
@@ -24,28 +23,45 @@ class SatisfactionActivity : AppCompatActivity() {
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+        val service = retrofit.create(ScoreService::class.java)
 
-        val service = retrofit.create(HelloService::class.java)
-        val call = service.message()
-        call.enqueue(object : Callback<HelloModel> {
-            override fun onFailure(call: Call<HelloModel>, t: Throwable) {
+        val scores = intent.extras?.get("scores")
+
+        val gsonJson = JsonObject()
+        val deptJson = JsonObject()
+        deptJson.addProperty("id", "1")
+        gsonJson.add("department", deptJson)
+        gsonJson.addProperty("score", scores.toString())
+
+
+        val call = service.addScore(gsonJson)
+        Log.d("mana sih", gsonJson.toString())
+        call.enqueue(object : Callback<ScoreModel> {
+            override fun onFailure(call: Call<ScoreModel>, t: Throwable) {
                 Log.e("error", t.message.toString())
             }
 
-            override fun onResponse(call: Call<HelloModel>, response: Response<HelloModel>) {
-//                val stringResponse = response.body().toString()
-                val stringResponse = response.body()?.message
-                Log.d("debug this haidar", stringResponse.toString())
-                Toast.makeText(baseContext, stringResponse, Toast.LENGTH_LONG).show()
-
+            override fun onResponse(call: Call<ScoreModel>, response: Response<ScoreModel>) {
+                Log.d("message = ", response.message())
+                if (response.isSuccessful) {
+                    val gson = Gson()
+                    val responseBody = gson.toJson(response.body())
+                    val stringResponse = response.body()?.score
+                    Log.d("---- JSON RESPONSE is--", responseBody)
+                    Log.d("debug this haidar", stringResponse.toString())
+                    Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
+                    Log.d("-----isSuccess----", "hai")
+                } else {
+                    Log.d("-----isFalse-----", "hai")
+                }
             }
 
-
         })
-        // if you are redirecting from a fragment then use getActivity() as the context.
+
         val timer = Timer()
         timer.schedule(timerTask {
             startActivity(Intent(this@SatisfactionActivity, MainActivity::class.java))
         }, 3000)
     }
 }
+
