@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">indeks-kepuasan-mobile</string>
+    <string name="app_name">indeksmobile</string>
+    <string name="server_address">Enter Server Address</string>
+    <string name="save_button">Save</string>
     <string name="indeks_kepuasan_trial">Apakah Anda Puas Dengan Layanan ini?</string>
     <string name="satisfyText">Puas</string>
     <string name="dissatisfyText">Tidak Puas</string>
+    <string name="hint">Server Address</string>
+    <string name="empty">Empty</string>
 </resources>
