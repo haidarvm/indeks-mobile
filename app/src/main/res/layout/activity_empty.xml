@@ -5,7 +5,7 @@
               android:layout_height="match_parent" android:background="#00C71515">
 
     <TextView
-            android:text="@string/empty"
+            android:text="@string/domain_choose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView"/>
     <EditText

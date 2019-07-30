@@ -2,10 +2,7 @@ package com.haidarvm.indeksmobile
 
 import com.google.gson.JsonObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface DepartmentService {
@@ -13,6 +10,6 @@ interface DepartmentService {
     fun getDepartment(): Call<List<DepartmentModel>>
 
     @Headers("Content-type: application/json")
-    @POST("api/department/")
+    @PUT("api/department")
     fun setDepartment(@Body jsonObject: JsonObject): Call<DepartmentModel>
 }

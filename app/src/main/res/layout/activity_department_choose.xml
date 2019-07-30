@@ -7,7 +7,7 @@
             android:id="@+id/domain_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/indeks_kepuasan_trial"
+            android:text="@string/dept_choose"
     />
 
 
@@ -17,5 +17,11 @@
             android:id="@+id/department_name"
     />
 
+    <Button
+            android:id="@+id/button_get"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pilih"
+    />
 
 </LinearLayout>

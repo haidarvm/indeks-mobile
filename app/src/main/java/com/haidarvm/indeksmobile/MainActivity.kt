@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences: SharedPreferences = getSharedPreferences(myPreferences, 0)
         val domainPerf = sharedPreferences.getString(serverSatisfaction, null)
         val deptChoose = sharedPreferences.getString(deptChoosePref, null)
+
         if (deptChoose != null && domainPerf != null) {
             setContentView(R.layout.activity_main)
             Log.e("++ Ada INI ++", domainPerf)

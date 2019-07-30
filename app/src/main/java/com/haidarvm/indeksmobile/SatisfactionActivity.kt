@@ -19,11 +19,12 @@ import kotlin.concurrent.timerTask
 
 
 class SatisfactionActivity : AppCompatActivity() {
-    private val baseUrl = "http://info.haidar.id/"
+    private val baseUrl = "http://indeks.haidarvm.com/"
 
     var myPreferences = "preferable"
     private var EMPTY = "";
     private val serverSatisfaction = "server"
+    private val deptChoosePref = "department"
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,9 +32,8 @@ class SatisfactionActivity : AppCompatActivity() {
 
         val sharedPreferences: SharedPreferences = getSharedPreferences(myPreferences, 0)
         val domainSharedPref = sharedPreferences.getString(serverSatisfaction, null)
-        if (domainSharedPref == null) {
-            Log.e("^^^Satis EMPTY^^","jelek")
-        } else {
+        val deptChoose = sharedPreferences.getString(deptChoosePref, null)
+        if (domainSharedPref != null && deptChoose != null) {
             Log.e("---- yaa Satis nya--", domainSharedPref)
             val completeDomain = "http://" + domainSharedPref.toString()
             Toast.makeText(applicationContext, "****dari Satis " + completeDomain, Toast.LENGTH_SHORT).show()
@@ -49,7 +49,7 @@ class SatisfactionActivity : AppCompatActivity() {
 
             val gsonJson = JsonObject()
             val deptJson = JsonObject()
-            deptJson.addProperty("id", "2")
+            deptJson.addProperty("id", deptChoose)
             gsonJson.add("department", deptJson)
             gsonJson.addProperty("score", scores.toString())
 
@@ -84,6 +84,10 @@ class SatisfactionActivity : AppCompatActivity() {
             timer.schedule(timerTask {
                 startActivity(Intent(this@SatisfactionActivity, MainActivity::class.java))
             }, 3000)
+
+
+        } else {
+            Log.e("^^^Satis EMPTY^^","jelek")
         }
     }
 }

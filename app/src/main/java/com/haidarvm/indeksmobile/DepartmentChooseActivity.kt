@@ -1,32 +1,34 @@
 package com.haidarvm.indeksmobile
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_department_choose.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import org.json.JSONArray
 import com.google.gson.reflect.TypeToken
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.widget.ArrayAdapter
-
-
+import com.google.gson.JsonObject
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class DepartmentChooseActivity : AppCompatActivity() {
 
-    private var EMPTY = "";
+    private var EMPTY = ""
     var myPreferences = "preferable"
-    var httpAdd = "http://";
+    var httpAdd = "http://"
     private val serverSatisfaction = "server"
+    private val deptChoosePref = "department"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,10 @@ class DepartmentChooseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_department_choose)
 //        spinner = (Spinner)findViewById(R.id.department_name);
 
-        val spinnerFrom: Spinner = findViewById(R.id.department_name) as Spinner
+        val spinnerFrom: Spinner = findViewById<Spinner>(R.id.department_name)
+//        val deviceId = Settings.Secure.getString(
+//            contentResolver,
+//            Settings.Secure.ANDROID_ID);
 
 
         val sharedPreferences: SharedPreferences = this.getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
@@ -62,16 +67,6 @@ class DepartmentChooseActivity : AppCompatActivity() {
                     val gson = Gson()
                     val jsonDept = gson.toJson(response.body())
                     Log.e("---- RealJSON is--", jsonDept)
-                    val jsonArray = JSONArray(jsonDept)
-                    (0..5).forEach { index ->
-                        val jsonObject = jsonArray.getJSONObject(index)
-                        if (jsonObject.has("name") && jsonObject.has("available")) {
-                            var deptName = jsonObject.getString("name")
-                            var deptAvailble = jsonObject.getString("available")
-                            Log.e("***dept-name**", deptName)
-                            Log.e("***dept-ava**", deptAvailble)
-                        }
-                    }
 
                     val typeToken = object : TypeToken<ArrayList<DepartmentModel>>() {}
                     Log.e("***dept-list**", jsonDept.toString())
@@ -79,15 +74,79 @@ class DepartmentChooseActivity : AppCompatActivity() {
                     val spinnerArr = ArrayList<String>()
                     for (deptName in listArray) {
                         Log.e("**spin name*", deptName.name)
-                        spinnerArr.add(deptName.name)
+                        spinnerArr.add(deptName.id.toString())
                     }
-                    spinnerFrom.setAdapter(
-                        ArrayAdapter<String>(
-                            this@DepartmentChooseActivity,
-                            android.R.layout.simple_spinner_dropdown_item,
-                            spinnerArr
-                        )
+
+
+                    val deptArrList = ArrayList<String>()
+                    for(deptDrop in listArray) {
+                        Log.e("**Dropdown", deptDrop.name + deptDrop.id)
+                        deptArrList.add(deptDrop.name + " ("+ deptDrop.id + ")")
+                    }
+
+                    spinnerFrom.adapter = ArrayAdapter<String>(
+                        this@DepartmentChooseActivity,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        deptArrList
                     )
+
+                    spinnerFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
+                            Log.e("do nothing", "null")
+                        }
+
+                        override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                            val selectedDept = parent.selectedItem.toString();
+                            val selectedDeptId = selectedDept.substring(selectedDept.indexOf("(")+1,selectedDept.indexOf(")"))
+                            Log.e(" ^^^Sel ID**" , selectedDeptId)
+                            // TODO put to the web
+                            button_get.setOnClickListener {
+                                Log.e("buttonChoose", selectedDeptId)
+                                val retrofit = Retrofit.Builder()
+                                    .baseUrl(httpAdd + domainSharedPref)
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build()
+                                val deptService = retrofit.create(DepartmentService::class.java)
+                                Log.e("----dptdomain---", domainSharedPref)
+
+                                val deptSelJson = JsonObject()
+                                deptSelJson.addProperty("id", selectedDeptId)
+                                deptSelJson.addProperty("available", 0)
+                                deptSelJson.addProperty("deviceId", "opppo")
+                                Log.e("---Device is--", "oppo")
+                                Log.e("---JsonSent -", deptSelJson.toString())
+                                val call = deptService.setDepartment(deptSelJson)
+                                call.enqueue(object : Callback<DepartmentModel> {
+                                    override fun onFailure(call: Call<DepartmentModel>, t: Throwable) {
+                                        Log.e("error", t.message.toString())
+                                        sharedPreferences.edit().clear().commit()
+                                    }
+                                    override fun onResponse(
+                                        call: Call<DepartmentModel>,
+                                        response: Response<DepartmentModel>
+                                    ) {
+                                        Log.e("----RESPONSE is--", gson.toJson(response.toString()).toString())
+                                        if (response.isSuccessful) {
+                                            val responseBody = gson.toJson(response.body())
+                                            Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
+                                            Log.e("---- JSON RESPONSE is--", responseBody)
+                                            Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
+                                            Log.e("-----isSuccess----", "hai")
+                                            val editor = sharedPreferences.edit()
+                                            editor.putString(deptChoosePref, selectedDeptId)
+                                            editor.apply()
+                                            val deptChoose = sharedPreferences.getString(deptChoosePref, null)
+                                            Log.e("deptChoosePref =", deptChoose)
+                                            redirectMain()
+                                        } else {
+                                            Log.e("-----isFalse-----", "hai")
+                                        }
+                                    }
+                                })
+                            }
+                        }
+
+                    }
 
 
                 } else {
@@ -129,6 +188,11 @@ class DepartmentChooseActivity : AppCompatActivity() {
 //        } else {
 //            Log.e("---- Gagal nya--", domainSharedPref)
 //        }
+    }
+
+    private fun redirectMain() {
+        val sd = Intent(this, MainActivity::class.java)
+        startActivity(sd)
     }
 
 
