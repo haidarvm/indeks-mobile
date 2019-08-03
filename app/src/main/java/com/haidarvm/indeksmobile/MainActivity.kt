@@ -7,17 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONArray
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import com.google.gson.JsonParser
-
+import kotlinx.android.synthetic.main.activity_empty.*
+import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            btnDissatisfaction.setOnClickListener {
+            btnDisatisfaction.setOnClickListener {
                 val intent = Intent(this, SatisfactionActivity::class.java)
                 intent.putExtra("scores", -1)
                 startActivity(intent)
@@ -59,8 +50,8 @@ class MainActivity : AppCompatActivity() {
             setContentView(R.layout.activity_empty)
             Log.e("KOSOONGG INI", "jelek")
             Toast.makeText(baseContext, "Hai isi domain dlu yuu", Toast.LENGTH_LONG).show()
-            button_get.setOnClickListener {
-                val inputtedText = edit_text.text
+            button_set_domain.setOnClickListener {
+                val inputtedText = domain_text.text
                 if (inputtedText.isNotEmpty()) { // EditText validation
                     savePreferences(serverSatisfaction, inputtedText.toString());
 

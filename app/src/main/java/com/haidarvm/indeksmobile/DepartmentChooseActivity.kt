@@ -19,7 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import android.widget.ArrayAdapter
 import com.google.gson.JsonObject
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_department_choose.*
 
 
 class DepartmentChooseActivity : AppCompatActivity() {
@@ -100,7 +100,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
                             val selectedDeptId = selectedDept.substring(selectedDept.indexOf("(")+1,selectedDept.indexOf(")"))
                             Log.e(" ^^^Sel ID**" , selectedDeptId)
                             // TODO put to the web
-                            button_get.setOnClickListener {
+                            button_dept_choose.setOnClickListener {
                                 Log.e("buttonChoose", selectedDeptId)
                                 val retrofit = Retrofit.Builder()
                                     .baseUrl(httpAdd + domainSharedPref)

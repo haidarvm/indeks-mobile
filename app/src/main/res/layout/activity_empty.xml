@@ -9,13 +9,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView"/>
     <EditText
-            android:id="@+id/edit_text"
+            android:id="@+id/domain_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Input server domain"
     />
     <Button
-            android:id="@+id/button_get"
+            android:id="@+id/button_set_domain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Get Text"
