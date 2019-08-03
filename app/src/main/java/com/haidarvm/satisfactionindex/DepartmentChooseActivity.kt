@@ -1,4 +1,4 @@
-package com.haidarvm.indeksmobile
+package com.haidarvm.satisfactionindex
 
 import android.content.Context
 import android.content.Intent

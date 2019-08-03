@@ -1,8 +1,4 @@
-package com.haidarvm.indeksmobile
-
-import android.R.id
-import android.R.attr.name
-
+package com.haidarvm.satisfactionindex
 
 
 data class DepartmentModel(

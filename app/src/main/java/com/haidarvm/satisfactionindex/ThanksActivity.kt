@@ -1,4 +1,4 @@
-package com.haidarvm.indeksmobile
+package com.haidarvm.satisfactionindex
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

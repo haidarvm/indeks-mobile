@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">indeksmobile</string>
+    <string name="app_name">SatisfactionIndex</string>
     <string name="server_address">Enter Server Address</string>
     <string name="save_button">Save</string>
     <string name="domain_choose">Silahkan Masukan Alamat Server</string>
-    <string name="text_thanks">Terima Kaish Telah Memberikan Kepuasan Pada Layanan Kami</string>
+    <string name="text_thanks">Terima Kasih Telah Memberikan Kepuasan Pada Layanan Kami</string>
     <string name="dept_choose">Silahkan Pilih Layanan</string>
     <string name="text_service">Apakah Anda Puas Dengan Layanan ini?</string>
     <string name="satisfyText">Puas</string>

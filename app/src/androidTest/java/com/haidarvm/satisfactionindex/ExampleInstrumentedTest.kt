@@ -1,4 +1,4 @@
-package com.haidarvm.indeksmobile
+package com.haidarvm.satisfactionindex
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

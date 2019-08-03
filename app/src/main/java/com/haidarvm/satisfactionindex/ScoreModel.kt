@@ -1,4 +1,4 @@
-package com.haidarvm.indeksmobile
+package com.haidarvm.satisfactionindex
 
 data class ScoreModel(val score:String, val department:DepartmentModel)
 
