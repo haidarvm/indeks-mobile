@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".SatisfactionActivity">
         </activity>
+        <activity android:name=".ThanksActivity">
+        </activity>
     </application>
 
 </manifest>

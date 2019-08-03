@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity" android:background="#ffdd23">
 
     <TextView
             android:id="@+id/textService"
@@ -17,28 +17,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.441"/>
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.342"
+            android:textSize="18sp" android:textStyle="bold" android:textColor="#705454"/>
     <Button
             android:id="@+id/btnSatisfaction"
             android:text="@string/satisfyText"
+            android:drawableTop="@mipmap/ic_launcher_foreground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.297"
-            app:layout_constraintVertical_bias="0.525"/>
+            app:layout_constraintHorizontal_bias="0.207"
+            app:layout_constraintVertical_bias="0.536"/>
     <Button
             android:id="@+id/btnDisatisfaction"
             android:text="@string/dissatisfyText"
+            android:drawableTop="@mipmap/ic_dissatisfy_foreground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.805"
-            app:layout_constraintVertical_bias="0.525"/>
+            app:layout_constraintHorizontal_bias="0.739"
+            app:layout_constraintVertical_bias="0.536"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

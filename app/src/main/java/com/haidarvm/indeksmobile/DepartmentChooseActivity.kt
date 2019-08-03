@@ -36,7 +36,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_department_choose)
 //        spinner = (Spinner)findViewById(R.id.department_name);
 
-        val spinnerFrom: Spinner = findViewById<Spinner>(R.id.department_name)
+        val spinnerFrom: Spinner = findViewById(R.id.department_name)
 //        val deviceId = Settings.Secure.getString(
 //            contentResolver,
 //            Settings.Secure.ANDROID_ID);
@@ -49,11 +49,11 @@ class DepartmentChooseActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val deptService = retrofit.create(DepartmentService::class.java)
-        Log.e("----dptdomain---", domainSharedPref)
+//        Log.e("----dptdomain---", domainSharedPref)
         val call = deptService.getDepartment()
         call.enqueue(object : Callback<List<DepartmentModel>> {
             override fun onFailure(call: Call<List<DepartmentModel>>, t: Throwable) {
-                Log.e("error list Deptnya", t.message.toString())
+//                Log.e("error list Deptnya", t.message.toString())
             }
 
             override fun onResponse(
@@ -62,25 +62,25 @@ class DepartmentChooseActivity : AppCompatActivity() {
             ) {
 
                 if (response.isSuccessful) {
-                    Log.e("---- JSON RESPONSE is--", response.body().toString())
+//                    Log.e("---- JSON RESPONSE is--", response.body().toString())
 //                                var stringJson = response.body();
                     val gson = Gson()
                     val jsonDept = gson.toJson(response.body())
-                    Log.e("---- RealJSON is--", jsonDept)
+//                    Log.e("---- RealJSON is--", jsonDept)
 
                     val typeToken = object : TypeToken<ArrayList<DepartmentModel>>() {}
-                    Log.e("***dept-list**", jsonDept.toString())
+//                    Log.e("***dept-list**", jsonDept.toString())
                     val listArray = gson.fromJson<ArrayList<DepartmentModel>>(jsonDept, typeToken.type)
                     val spinnerArr = ArrayList<String>()
                     for (deptName in listArray) {
-                        Log.e("**spin name*", deptName.name)
+//                        Log.e("**spin name*", deptName.name)
                         spinnerArr.add(deptName.id.toString())
                     }
 
 
                     val deptArrList = ArrayList<String>()
                     for(deptDrop in listArray) {
-                        Log.e("**Dropdown", deptDrop.name + deptDrop.id)
+//                        Log.e("**Dropdown", deptDrop.name + deptDrop.id)
                         deptArrList.add(deptDrop.name + " ("+ deptDrop.id + ")")
                     }
 
@@ -92,29 +92,29 @@ class DepartmentChooseActivity : AppCompatActivity() {
 
                     spinnerFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onNothingSelected(p0: AdapterView<*>?) {
-                            Log.e("do nothing", "null")
+//                            Log.e("do nothing", "null")
                         }
 
                         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                             val selectedDept = parent.selectedItem.toString();
                             val selectedDeptId = selectedDept.substring(selectedDept.indexOf("(")+1,selectedDept.indexOf(")"))
-                            Log.e(" ^^^Sel ID**" , selectedDeptId)
+//                            Log.e(" ^^^Sel ID**" , selectedDeptId)
                             // TODO put to the web
                             button_dept_choose.setOnClickListener {
-                                Log.e("buttonChoose", selectedDeptId)
+//                                Log.e("buttonChoose", selectedDeptId)
                                 val retrofit = Retrofit.Builder()
                                     .baseUrl(httpAdd + domainSharedPref)
                                     .addConverterFactory(GsonConverterFactory.create())
                                     .build()
                                 val deptService = retrofit.create(DepartmentService::class.java)
-                                Log.e("----dptdomain---", domainSharedPref)
+                                Log.d("----dptdomain---", domainSharedPref)
 
                                 val deptSelJson = JsonObject()
                                 deptSelJson.addProperty("id", selectedDeptId)
                                 deptSelJson.addProperty("available", 0)
                                 deptSelJson.addProperty("deviceId", "opppo")
-                                Log.e("---Device is--", "oppo")
-                                Log.e("---JsonSent -", deptSelJson.toString())
+//                                Log.e("---Device is--", "oppo")
+//                                Log.e("---JsonSent -", deptSelJson.toString())
                                 val call = deptService.setDepartment(deptSelJson)
                                 call.enqueue(object : Callback<DepartmentModel> {
                                     override fun onFailure(call: Call<DepartmentModel>, t: Throwable) {
@@ -125,18 +125,18 @@ class DepartmentChooseActivity : AppCompatActivity() {
                                         call: Call<DepartmentModel>,
                                         response: Response<DepartmentModel>
                                     ) {
-                                        Log.e("----RESPONSE is--", gson.toJson(response.toString()).toString())
+                                        Log.d("----RESPONSE is--", gson.toJson(response.toString()).toString())
                                         if (response.isSuccessful) {
                                             val responseBody = gson.toJson(response.body())
                                             Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
-                                            Log.e("---- JSON RESPONSE is--", responseBody)
+//                                            Log.e("---- JSON RESPONSE is--", responseBody)
                                             Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
-                                            Log.e("-----isSuccess----", "hai")
+//                                            Log.e("-----isSuccess----", "hai")
                                             val editor = sharedPreferences.edit()
                                             editor.putString(deptChoosePref, selectedDeptId)
                                             editor.apply()
                                             val deptChoose = sharedPreferences.getString(deptChoosePref, null)
-                                            Log.e("deptChoosePref =", deptChoose)
+//                                            Log.e("deptChoosePref =", deptChoose)
                                             redirectMain()
                                         } else {
                                             Log.e("-----isFalse-----", "hai")
@@ -184,7 +184,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
 //            })
 
         Toast.makeText(applicationContext, "****dari input " + domainSharedPref, Toast.LENGTH_SHORT).show()
-        Log.e("---- yaa Input nya--", domainSharedPref)
+        Log.d("---- yaa Input nya--", domainSharedPref)
 //        } else {
 //            Log.e("---- Gagal nya--", domainSharedPref)
 //        }

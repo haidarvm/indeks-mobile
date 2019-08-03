@@ -1,11 +1,9 @@
 package com.haidarvm.indeksmobile
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -30,14 +28,16 @@ class SatisfactionActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
+        setContentView(R.layout.activity_thanks)
+
         val sharedPreferences: SharedPreferences = getSharedPreferences(myPreferences, 0)
         val domainSharedPref = sharedPreferences.getString(serverSatisfaction, null)
         val deptChoose = sharedPreferences.getString(deptChoosePref, null)
         if (domainSharedPref != null && deptChoose != null) {
-            Log.e("---- yaa Satis nya--", domainSharedPref)
+//            Log.e("---- yaa Satis nya--", domainSharedPref)
             val completeDomain = "http://" + domainSharedPref.toString()
-            Toast.makeText(applicationContext, "****dari Satis " + completeDomain, Toast.LENGTH_SHORT).show()
-            Log.e("---- yaa Satis nya--", completeDomain)
+//            Toast.makeText(applicationContext, "****dari Satis " + completeDomain, Toast.LENGTH_SHORT).show()
+//            Log.e("---- yaa Satis nya--", completeDomain)
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(completeDomain)
@@ -55,7 +55,6 @@ class SatisfactionActivity : AppCompatActivity() {
 
 
             val call = service.addScore(gsonJson)
-            Log.e("mana sih", gsonJson.toString())
             call.enqueue(object : Callback<ScoreModel> {
                 override fun onFailure(call: Call<ScoreModel>, t: Throwable) {
                     Log.e("error", t.message.toString())
@@ -68,13 +67,13 @@ class SatisfactionActivity : AppCompatActivity() {
                         val gson = Gson()
                         val responseBody = gson.toJson(response.body())
                         val stringResponse = response.body()?.score
-                        Log.e("---- JSON RESPONSE is--", responseBody)
-                        Log.e("debug this haidar", stringResponse.toString())
-                        Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
-                        Log.e("-----isSuccess----", "hai")
+                        Log.d("---- JSON RESPONSE is--", responseBody)
+                        Log.d("debug this haidar", stringResponse.toString())
+//                        Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
+                        Log.d("-----isSuccess----", "hai")
                     } else {
 //                    sharedPreferences.edit().clear().commit()
-                        Log.e("-----isFalse-----", "hai")
+                        Log.d("-----isFalse-----", "hai")
                     }
                 }
 
@@ -87,7 +86,7 @@ class SatisfactionActivity : AppCompatActivity() {
 
 
         } else {
-            Log.e("^^^Satis EMPTY^^","jelek")
+            Log.d("^^^Satis EMPTY^^","jelek")
         }
     }
 }

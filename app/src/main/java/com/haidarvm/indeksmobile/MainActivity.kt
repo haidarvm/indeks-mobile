@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         if (deptChoose != null && domainPerf != null) {
             setContentView(R.layout.activity_main)
-            Log.e("++ Ada INI ++", domainPerf)
-            Log.e("++ Ada Dept ++", deptChoose)
+            Log.d("++ Ada INI ++", domainPerf)
+            Log.d("++ Ada Dept ++", deptChoose)
             Toast.makeText(
                 applicationContext,
                 sharedPreferences.getString(serverSatisfaction, EMPTY),
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             sharedPreferences.edit().clear().commit()
             setContentView(R.layout.activity_empty)
-            Log.e("KOSOONGG INI", "jelek")
+            Log.d("KOSOONGG INI", "jelek")
             Toast.makeText(baseContext, "Hai isi domain dlu yuu", Toast.LENGTH_LONG).show()
             button_set_domain.setOnClickListener {
                 val inputtedText = domain_text.text
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         editor.putString(key, value)
         editor.apply()
         val name = sharedPreferences.getString(serverSatisfaction, EMPTY)
-        Log.e("---- yaa  New nya--", name)
+        Log.d("---- yaa  New nya--", name)
         Toast.makeText(applicationContext, name, Toast.LENGTH_SHORT).show()
 
     }
