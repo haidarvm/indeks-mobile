@@ -17,8 +17,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.342"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.32"
             android:textSize="18sp" android:textStyle="bold" android:textColor="#705454"/>
+    <TextView
+            android:id="@+id/departmenText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/departmen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.005"
+            android:textSize="18sp" android:textStyle="bold" android:textColor="#705454"
+            app:layout_constraintHorizontal_bias="0.465"/>
+
     <Button
             android:id="@+id/btnSatisfaction"
             android:text="@string/satisfyText"
@@ -30,8 +43,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.207"
-            app:layout_constraintVertical_bias="0.536"/>
+            app:layout_constraintHorizontal_bias="0.216"
+            app:layout_constraintVertical_bias="0.742"/>
     <Button
             android:id="@+id/btnDisatisfaction"
             android:text="@string/dissatisfyText"
@@ -43,7 +56,18 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.739"
-            app:layout_constraintVertical_bias="0.536"/>
+            app:layout_constraintHorizontal_bias="0.749"
+            app:layout_constraintVertical_bias="0.742"/>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.456"
+            android:id="@+id/imageGlide" app:layout_constraintHorizontal_bias="0.498"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

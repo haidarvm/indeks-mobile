@@ -29,6 +29,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
     var httpAdd = "http://"
     private val serverSatisfaction = "server"
     private val deptChoosePref = "department"
+    private val deptChooseNamePref = "department name"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
         val call = deptService.getDepartment()
         call.enqueue(object : Callback<List<DepartmentModel>> {
             override fun onFailure(call: Call<List<DepartmentModel>>, t: Throwable) {
-//                Log.e("error list Deptnya", t.message.toString())
+                Log.e("error list Deptnya", t.message.toString())
             }
 
             override fun onResponse(
@@ -69,7 +70,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
 //                    Log.e("---- RealJSON is--", jsonDept)
 
                     val typeToken = object : TypeToken<ArrayList<DepartmentModel>>() {}
-//                    Log.e("***dept-list**", jsonDept.toString())
+                    Log.e("***dept-list**", jsonDept.toString())
                     val listArray = gson.fromJson<ArrayList<DepartmentModel>>(jsonDept, typeToken.type)
                     val spinnerArr = ArrayList<String>()
                     for (deptName in listArray) {
@@ -99,7 +100,6 @@ class DepartmentChooseActivity : AppCompatActivity() {
                             val selectedDept = parent.selectedItem.toString();
                             val selectedDeptId = selectedDept.substring(selectedDept.indexOf("(")+1,selectedDept.indexOf(")"))
 //                            Log.e(" ^^^Sel ID**" , selectedDeptId)
-                            // TODO put to the web
                             button_dept_choose.setOnClickListener {
 //                                Log.e("buttonChoose", selectedDeptId)
                                 val retrofit = Retrofit.Builder()
@@ -128,12 +128,12 @@ class DepartmentChooseActivity : AppCompatActivity() {
                                         Log.d("----RESPONSE is--", gson.toJson(response.toString()).toString())
                                         if (response.isSuccessful) {
                                             val responseBody = gson.toJson(response.body())
-                                            Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
+//                                            Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
 //                                            Log.e("---- JSON RESPONSE is--", responseBody)
-                                            Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
 //                                            Log.e("-----isSuccess----", "hai")
                                             val editor = sharedPreferences.edit()
                                             editor.putString(deptChoosePref, selectedDeptId)
+                                            editor.putString(deptChooseNamePref, selectedDept)
                                             editor.apply()
                                             val deptChoose = sharedPreferences.getString(deptChoosePref, null)
 //                                            Log.e("deptChoosePref =", deptChoose)

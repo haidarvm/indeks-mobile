@@ -6,9 +6,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_empty.*
+import kotlinx.android.synthetic.main.activity_thanks.*
 import kotlinx.android.synthetic.main.content_main.*
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     var myPreferences = "preferable"
     private val serverSatisfaction = "server"
     private val deptChoosePref = "department"
+    private val deptChooseNamePref = "department name"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         if (deptChoose != null && domainPerf != null) {
             setContentView(R.layout.activity_main)
-            Log.d("++ Ada INI ++", domainPerf)
-            Log.d("++ Ada Dept ++", deptChoose)
-            Toast.makeText(
-                applicationContext,
-                sharedPreferences.getString(serverSatisfaction, EMPTY),
-                Toast.LENGTH_SHORT
-            ).show()
+            Log.d("++ Ada INI ++", domainPerf + deptChoose)
+
+            departmenText.text = deptChooseNamePref
+
+            Glide.with(this).load("http://indeks.haidarvm.com/images/logo.png").into(imageGlide)
 
             btnSatisfaction.setOnClickListener {
                 val intent = Intent(this, SatisfactionActivity::class.java)
@@ -106,10 +109,10 @@ class MainActivity : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         editor.clear();
         editor.putString(key, value)
-        editor.apply()
+        editor.commit()
         val name = sharedPreferences.getString(serverSatisfaction, EMPTY)
         Log.d("---- yaa  New nya--", name)
-        Toast.makeText(applicationContext, name, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(applicationContext, name, Toast.LENGTH_SHORT).show()
 
     }
 }

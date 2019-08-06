@@ -9,5 +9,6 @@
     <string name="satisfyText">Puas</string>
     <string name="dissatisfyText">Tidak Puas</string>
     <string name="hint">Server Address</string>
+    <string name="departmen">Layanan</string>
     <string name="empty">Empty</string>
 </resources>

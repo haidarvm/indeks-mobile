@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     signingConfigs {
         release {
@@ -19,20 +21,20 @@ android {
         applicationId "com.haidarvm.satisfactionindex"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 11
-        versionName "2.0"
+        versionCode 13
+        versionName "2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
     }
     buildTypes {
         release {
-            debuggable true
+//            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
-            debuggable true
+//            debuggable true
             signingConfig signingConfigs.debug
         }
     }
@@ -52,6 +54,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
     implementation "com.squareup.retrofit2:converter-gson:2.6.0"
     implementation "com.squareup.retrofit2:converter-scalars:2.6.0"
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    kapt 'com.github.bumptech.glide:compiler:4.4.0'
 
 
     //rx anroid
