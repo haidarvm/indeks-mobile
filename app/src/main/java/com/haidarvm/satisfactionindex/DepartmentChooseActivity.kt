@@ -29,7 +29,8 @@ class DepartmentChooseActivity : AppCompatActivity() {
     var httpAdd = "http://"
     private val serverSatisfaction = "server"
     private val deptChoosePref = "department"
-    private val deptChooseNamePref = "department name"
+    private val deptChooseNamePref = "department_name"
+    private val deptChooseTextPref = "department_text"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,9 +81,9 @@ class DepartmentChooseActivity : AppCompatActivity() {
 
 
                     val deptArrList = ArrayList<String>()
-                    for(deptDrop in listArray) {
+                    for (deptDrop in listArray) {
 //                        Log.e("**Dropdown", deptDrop.name + deptDrop.id)
-                        deptArrList.add(deptDrop.name + " ("+ deptDrop.id + ")")
+                        deptArrList.add(deptDrop.name + " (" + deptDrop.id + ")")
                     }
 
                     spinnerFrom.adapter = ArrayAdapter<String>(
@@ -98,10 +99,11 @@ class DepartmentChooseActivity : AppCompatActivity() {
 
                         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                             val selectedDept = parent.selectedItem.toString();
-                            val selectedDeptId = selectedDept.substring(selectedDept.indexOf("(")+1,selectedDept.indexOf(")"))
+                            val selectedDeptId =
+                                selectedDept.substring(selectedDept.indexOf("(") + 1, selectedDept.indexOf(")"))
 //                            Log.e(" ^^^Sel ID**" , selectedDeptId)
                             button_dept_choose.setOnClickListener {
-//                                Log.e("buttonChoose", selectedDeptId)
+                                //                                Log.e("buttonChoose", selectedDeptId)
                                 val retrofit = Retrofit.Builder()
                                     .baseUrl(httpAdd + domainSharedPref)
                                     .addConverterFactory(GsonConverterFactory.create())
@@ -121,20 +123,28 @@ class DepartmentChooseActivity : AppCompatActivity() {
                                         Log.e("error", t.message.toString())
                                         sharedPreferences.edit().clear().commit()
                                     }
+
                                     override fun onResponse(
                                         call: Call<DepartmentModel>,
                                         response: Response<DepartmentModel>
                                     ) {
-                                        Log.d("----RESPONSE is--", gson.toJson(response.toString()).toString())
+//                                        Log.d("----RESPONSE is--", gson.toJson(response.toString()).toString())
                                         if (response.isSuccessful) {
                                             val responseBody = gson.toJson(response.body())
 //                                            Toast.makeText(baseContext, responseBody, Toast.LENGTH_LONG).show()
-//                                            Log.e("---- JSON RESPONSE is--", responseBody)
+//                                            Log.e("---- JSON RES DEPTis--", responseBody.toString())
 //                                            Log.e("-----isSuccess----", "hai")
                                             val editor = sharedPreferences.edit()
                                             editor.putString(deptChoosePref, selectedDeptId)
-                                            editor.putString(deptChooseNamePref, selectedDept)
+                                            val gson = Gson()
+                                            val deptAll = Gson().fromJson(responseBody, DepartmentModel::class.java)
+                                            val textService = deptAll.textService
+                                            editor.putString(deptChooseTextPref, textService)
+                                            editor.putString(deptChooseNamePref, deptAll.name)
+                                            Log.e("deptChooseText=", textService)
+
                                             editor.apply()
+
                                             val deptChoose = sharedPreferences.getString(deptChoosePref, null)
 //                                            Log.e("deptChoosePref =", deptChoose)
                                             redirectMain()

@@ -6,13 +6,11 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_empty.*
 import kotlinx.android.synthetic.main.activity_thanks.*
 import kotlinx.android.synthetic.main.content_main.*
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +19,8 @@ class MainActivity : AppCompatActivity() {
     var myPreferences = "preferable"
     private val serverSatisfaction = "server"
     private val deptChoosePref = "department"
-    private val deptChooseNamePref = "department name"
+    private val deptChooseNamePref = "department_name"
+    private val deptChooseTextPref = "department_text"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,23 +30,38 @@ class MainActivity : AppCompatActivity() {
 
         if (deptChoose != null && domainPerf != null) {
             setContentView(R.layout.activity_main)
-            Log.d("++ Ada INI ++", domainPerf + deptChoose)
+            Log.e("++ Ada INI ++", domainPerf + deptChoose)
 
-            departmenText.text = deptChooseNamePref
-
-            Glide.with(this).load("http://indeks.haidarvm.com/images/logo.png").into(imageGlide)
-
-            btnSatisfaction.setOnClickListener {
+            val deptChooseNamePrefVal = sharedPreferences.getString(deptChooseNamePref, null)
+            val deptChooseTextPrefVal = sharedPreferences.getString(deptChooseTextPref, null)
+            departmenText.text = deptChooseNamePrefVal
+            textService.text = deptChooseTextPrefVal
+            Log.e(" deptTextSer =", deptChooseTextPrefVal)
+//            http://indeks.haidarvm.com/dept/dissatisfy/3.png
+            GlideApp.with(imgSatisfy.context).load("http://$domainPerf/dept/satisfy/$deptChoose.png").override(250,250).into(imgSatisfy)
+            GlideApp.with(imgDissatisfy.context).load("http://$domainPerf/dept/dissatisfy/$deptChoose.png").override(250,250).into(imgDissatisfy)
+            imgSatisfy.setOnClickListener {
                 val intent = Intent(this, SatisfactionActivity::class.java)
                 intent.putExtra("scores", 1)
                 startActivity(intent)
             }
 
-            btnDisatisfaction.setOnClickListener {
+            imgDissatisfy.setOnClickListener {
                 val intent = Intent(this, SatisfactionActivity::class.java)
                 intent.putExtra("scores", -1)
                 startActivity(intent)
             }
+//            btnSatisfaction.setOnClickListener {
+//                val intent = Intent(this, SatisfactionActivity::class.java)
+//                intent.putExtra("scores", 1)
+//                startActivity(intent)
+//            }
+//
+//            btnDisatisfaction.setOnClickListener {
+//                val intent = Intent(this, SatisfactionActivity::class.java)
+//                intent.putExtra("scores", -1)
+//                startActivity(intent)
+//            }
         } else {
             sharedPreferences.edit().clear().commit()
             setContentView(R.layout.activity_empty)

@@ -32,32 +32,32 @@
             android:textSize="18sp" android:textStyle="bold" android:textColor="#705454"
             app:layout_constraintHorizontal_bias="0.465"/>
 
-    <Button
-            android:id="@+id/btnSatisfaction"
-            android:text="@string/satisfyText"
-            android:drawableTop="@mipmap/ic_launcher_foreground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.216"
-            app:layout_constraintVertical_bias="0.742"/>
-    <Button
-            android:id="@+id/btnDisatisfaction"
-            android:text="@string/dissatisfyText"
-            android:drawableTop="@mipmap/ic_dissatisfy_foreground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_light"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.749"
-            app:layout_constraintVertical_bias="0.742"/>
+    <!--<Button-->
+            <!--android:id="@+id/btnSatisfaction"-->
+            <!--android:text="@string/satisfyText"-->
+            <!--android:drawableTop="@mipmap/ic_launcher_foreground"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@android:color/holo_green_light"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.216"-->
+            <!--app:layout_constraintVertical_bias="0.742"/>-->
+    <!--<Button-->
+            <!--android:id="@+id/btnDisatisfaction"-->
+            <!--android:text="@string/dissatisfyText"-->
+            <!--android:drawableTop="@mipmap/ic_dissatisfy_foreground"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@android:color/holo_green_light"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.749"-->
+            <!--app:layout_constraintVertical_bias="0.742"/>-->
 
     <ImageView
             android:layout_width="wrap_content"
@@ -67,7 +67,18 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.456"
-            android:id="@+id/imageGlide" app:layout_constraintHorizontal_bias="0.498"/>
+            app:layout_constraintVertical_bias="0.635"
+            android:id="@+id/imgSatisfy" app:layout_constraintHorizontal_bias="0.215"/>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.635"
+            android:id="@+id/imgDissatisfy" app:layout_constraintHorizontal_bias="0.802"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
