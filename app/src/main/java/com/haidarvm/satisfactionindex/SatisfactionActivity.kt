@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -58,7 +59,8 @@ class SatisfactionActivity : AppCompatActivity() {
             call.enqueue(object : Callback<ScoreModel> {
                 override fun onFailure(call: Call<ScoreModel>, t: Throwable) {
                     Log.e("error", t.message.toString())
-                    sharedPreferences.edit().clear().commit()
+                    Toast.makeText(baseContext, "Maaf terjadi gangguan silahkan check koneksi server", Toast.LENGTH_LONG).show()
+//                    sharedPreferences.edit().clear().commit() // don't use it yet
                 }
 
                 override fun onResponse(call: Call<ScoreModel>, response: Response<ScoreModel>) {

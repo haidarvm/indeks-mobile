@@ -31,6 +31,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
     private val deptChoosePref = "department"
     private val deptChooseNamePref = "department_name"
     private val deptChooseTextPref = "department_text"
+    private val deptChooseBgPref = "department_bg_color"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +69,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
 //                                var stringJson = response.body();
                     val gson = Gson()
                     val jsonDept = gson.toJson(response.body())
-//                    Log.e("---- RealJSON is--", jsonDept)
+                    Log.e("---- RealJSON is--", jsonDept)
 
                     val typeToken = object : TypeToken<ArrayList<DepartmentModel>>() {}
                     Log.e("***dept-list**", jsonDept.toString())
@@ -141,6 +142,7 @@ class DepartmentChooseActivity : AppCompatActivity() {
                                             val textService = deptAll.textService
                                             editor.putString(deptChooseTextPref, textService)
                                             editor.putString(deptChooseNamePref, deptAll.name)
+                                            editor.putString(deptChooseBgPref, "#" + deptAll.bgColor)
                                             Log.e("deptChooseText=", textService)
 
                                             editor.apply()

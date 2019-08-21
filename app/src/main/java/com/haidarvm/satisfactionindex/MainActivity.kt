@@ -3,14 +3,21 @@ package com.haidarvm.satisfactionindex
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_empty.*
 import kotlinx.android.synthetic.main.activity_thanks.*
 import kotlinx.android.synthetic.main.content_main.*
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
+import com.bumptech.glide.request.RequestOptions
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val deptChoosePref = "department"
     private val deptChooseNamePref = "department_name"
     private val deptChooseTextPref = "department_text"
+    private val deptChooseBgPref = "department_bg_color"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +38,23 @@ class MainActivity : AppCompatActivity() {
 
         if (deptChoose != null && domainPerf != null) {
             setContentView(R.layout.activity_main)
-            Log.e("++ Ada INI ++", domainPerf + deptChoose)
+            Log.e("++ Ada INI ++", domainPerf + deptChoose + " warna " + deptChooseBgPref)
 
-            val deptChooseNamePrefVal = sharedPreferences.getString(deptChooseNamePref, null)
             val deptChooseTextPrefVal = sharedPreferences.getString(deptChooseTextPref, null)
-            departmenText.text = deptChooseNamePrefVal
+            val deptChooseBgPrefVal = sharedPreferences.getString(deptChooseBgPref, null)
+            var checkBgPref = deptChooseBgPrefVal ?: "#81B7FF"
+            Log.e("warna nya ", checkBgPref)
+//            checkBgPref = "".equals(.deptChooseBgPrefVal)
+            main_layout.setBackgroundColor(Color.parseColor(checkBgPref))
+//            val deptChooseNamePrefVal = sharedPreferences.getString(deptChooseNamePref, null)
+//            departmenText.text = deptChooseNamePrefVal
             textService.text = deptChooseTextPrefVal
             Log.e(" deptTextSer =", deptChooseTextPrefVal)
 //            http://indeks.haidarvm.com/dept/dissatisfy/3.png
-            GlideApp.with(imgSatisfy.context).load("http://$domainPerf/dept/satisfy/$deptChoose.png").override(250,250).into(imgSatisfy)
-            GlideApp.with(imgDissatisfy.context).load("http://$domainPerf/dept/dissatisfy/$deptChoose.png").override(250,250).into(imgDissatisfy)
+            val options = RequestOptions()
+            options.centerCrop().fitCenter()
+            GlideApp.with(imgSatisfy.context).load("http://$domainPerf/dept/satisfy/$deptChoose.png").override(185,185).apply(options).into(imgSatisfy)
+            GlideApp.with(imgDissatisfy.context).load("http://$domainPerf/dept/dissatisfy/$deptChoose.png").override(185,185).apply(options).into(imgDissatisfy)
             imgSatisfy.setOnClickListener {
                 val intent = Intent(this, SatisfactionActivity::class.java)
                 intent.putExtra("scores", 1)
@@ -128,6 +143,11 @@ class MainActivity : AppCompatActivity() {
         Log.d("---- yaa  New nya--", name)
 //        Toast.makeText(applicationContext, name, Toast.LENGTH_SHORT).show()
 
+    }
+
+    override fun onBackPressed() {
+        // do something
+        Toast.makeText(baseContext, "Maaf tidak tersedia", Toast.LENGTH_LONG).show()
     }
 }
 
