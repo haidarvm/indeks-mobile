@@ -83,7 +83,10 @@ class SatisfactionActivity : AppCompatActivity() {
 
             val timer = Timer()
             timer.schedule(timerTask {
-                startActivity(Intent(this@SatisfactionActivity, MainActivity::class.java))
+                val intent = Intent(Intent(this@SatisfactionActivity, MainActivity::class.java))
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivityForResult(intent, 0);
+                overridePendingTransition(0,0);
             }, 3000)
 
 

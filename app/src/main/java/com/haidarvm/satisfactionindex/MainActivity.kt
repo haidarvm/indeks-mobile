@@ -58,13 +58,17 @@ class MainActivity : AppCompatActivity() {
             imgSatisfy.setOnClickListener {
                 val intent = Intent(this, SatisfactionActivity::class.java)
                 intent.putExtra("scores", 1)
-                startActivity(intent)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivityForResult(intent, 0);
+                overridePendingTransition(0,0);
             }
 
             imgDissatisfy.setOnClickListener {
                 val intent = Intent(this, SatisfactionActivity::class.java)
                 intent.putExtra("scores", -1)
-                startActivity(intent)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivityForResult(intent, 0);
+                overridePendingTransition(0,0);
             }
 //            btnSatisfaction.setOnClickListener {
 //                val intent = Intent(this, SatisfactionActivity::class.java)
